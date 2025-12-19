@@ -44,26 +44,23 @@ export const registerUser = async (req, res) => {
 };
 
 // @POST /api/auth/login
+// @POST /api/auth/login
 export const loginUser = async (req, res) => {
   try {
-    const { username, password } = req.body;
+    const { email, password } = req.body;
 
-    // username = email
-    const user = await User.findOne({ email: username });
+    const user = await User.findOne({ email });
 
     if (!user)
       return res.status(401).json({ message: "Invalid credentials" });
 
-    // check status
     if (user.status !== "active")
       return res.status(403).json({ message: "User is inactive" });
 
-    // check password
     const isMatch = await user.matchPassword(password);
     if (!isMatch)
       return res.status(401).json({ message: "Invalid credentials" });
 
-    // generate token
     const token = jwt.sign(
       {
         id: user._id,
@@ -89,4 +86,3 @@ export const loginUser = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
-
