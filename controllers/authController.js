@@ -43,6 +43,7 @@ export const registerUser = async (req, res) => {
   }
 };
 
+
 // @POST /api/auth/login
 // @POST /api/auth/login
 export const loginUser = async (req, res) => {
@@ -86,3 +87,40 @@ export const loginUser = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
+
+router.get("/", (req, res) => {
+  res.send(`
+    <!DOCTYPE html>
+    <html>
+    <head>
+      <title>IKC Backend</title>
+      <style>
+        body {
+          font-family: Arial, sans-serif;
+          background: #f4f6f8;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          height: 100vh;
+        }
+        .card {
+          background: white;
+          padding: 30px;
+          border-radius: 10px;
+          box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+          text-align: center;
+        }
+        h1 { color: #0049AC; }
+      </style>
+    </head>
+    <body>
+      <div class="card">
+        <h1>🚀 IKC Backend Running</h1>
+        <p>API is live and working successfully</p>
+      </div>
+    </body>
+    </html>
+  `);
+});
+
+export default router;
